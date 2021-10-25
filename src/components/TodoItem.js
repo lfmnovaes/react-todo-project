@@ -16,18 +16,6 @@ class TodoItem extends React.Component {
     });
   }
 
-  setUpdate = (updatedTitle, id) => {
-    const { todos } = this.state;
-    this.setState({
-      todos: todos.map((todo) => {
-        if (todo.id === id) {
-          Object.defineProperty(todo.title, updatedTitle);
-        }
-        return todo;
-      }),
-    });
-  }
-
   handleUpdatedDone = (event) => {
     if (event.key === 'Enter') {
       this.setState({ editing: false });
@@ -41,7 +29,9 @@ class TodoItem extends React.Component {
       opacity: 0.4,
       textDecoration: 'line-through',
     };
-    const { todo, handleChangeProps, deleteTodoProps } = this.props;
+    const {
+      todo, handleChangeProps, deleteTodoProps, setUpdate,
+    } = this.props;
     const { completed, id, title } = todo;
 
     const viewMode = {};
@@ -71,7 +61,7 @@ class TodoItem extends React.Component {
           style={editMode}
           className={styles.textInput}
           value={title}
-          onChange={(e) => { this.setUpdate(e.target.value, id); }}
+          onChange={(e) => { setUpdate(e.target.value, id); }}
           onKeyDown={this.handleUpdatedDone}
         />
       </li>
@@ -83,6 +73,7 @@ TodoItem.propTypes = {
   todo: PropTypes.node.isRequired,
   handleChangeProps: PropTypes.func.isRequired,
   deleteTodoProps: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
 };
 
 export default TodoItem;
