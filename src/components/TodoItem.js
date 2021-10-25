@@ -1,51 +1,51 @@
-import React from "react";
-import styles from "./TodoItem.module.css"
+import React from 'react';
+import styles from './TodoItem.module.css';
 
 class TodoItem extends React.Component {
   state = {
-    editing: false
+    editing: false,
   }
 
   handleEditing = () => {
     this.setState({
       editing: true,
-    })
+    });
   }
 
   setUpdate = (updatedTitle, id) => {
     this.setState({
-      todos: this.state.todos.map(todo => {
+      todos: this.state.todos.map((todo) => {
         if (todo.id === id) {
-          todo.title = updatedTitle
+          todo.title = updatedTitle;
         }
-        return todo
+        return todo;
       }),
-    })
+    });
   }
 
-  handleUpdatedDone = event => {
-    if (event.key === "Enter") {
-      this.setState({ editing: false })
+  handleUpdatedDone = (event) => {
+    if (event.key === 'Enter') {
+      this.setState({ editing: false });
     }
   }
 
   render() {
     const completedStyle = {
-      fontStyle: "italic",
-      color: "#595959",
+      fontStyle: 'italic',
+      color: '#595959',
       opacity: 0.4,
-      textDecoration: "line-through",
-    }
-    
+      textDecoration: 'line-through',
+    };
+
     const { completed, id, title } = this.props.todo;
 
-    let viewMode = {}
-    let editMode = {}
+    const viewMode = {};
+    const editMode = {};
 
     if (this.state.editing) {
-      viewMode.display = "none"
+      viewMode.display = 'none';
     } else {
-      editMode.display = "none"
+      editMode.display = 'none';
     }
 
     return (
@@ -60,16 +60,16 @@ class TodoItem extends React.Component {
           <button onClick={() => this.props.deleteTodoProps(id)}>Delete</button>
           <span style={completed ? completedStyle : null}>{title}</span>
         </div>
-        <input 
-          type="text" 
-          style={editMode} 
-          className={styles.textInput} 
-          value={title} 
-          onChange={(e)=> {this.props.setUpdate(e.target.value, id)}}
+        <input
+          type="text"
+          style={editMode}
+          className={styles.textInput}
+          value={title}
+          onChange={(e) => { this.props.setUpdate(e.target.value, id); }}
           onKeyDown={this.handleUpdatedDone}
         />
       </li>
-    )
+    );
   }
 }
 

@@ -1,25 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class InputTodo extends Component {
   state = {
-    title: ""
+    title: '',
   };
 
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
-      title: e.target.value
+      title: e.target.value,
     });
   };
 
-  handleSubmit = e => {
-    e.preventDefault()
+  handleSubmit = (e) => {
+    e.preventDefault();
     if (this.state.title.trim()) {
-      this.props.addTodoProps(this.state.title)
+      this.props.addTodoProps(this.state.title);
       this.setState({
-        title: "",
-      })
+        title: '',
+      });
     } else {
-      alert("Please write item")
+      alert('Please write item');
     }
   }
 
@@ -36,6 +36,6 @@ export default class InputTodo extends Component {
         />
         <button className="input-submit">Submit</button>
       </form>
-    )
+    );
   }
 }
